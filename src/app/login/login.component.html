@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="user_card">
+      <div class="d-flex justify-content-center">
+        <div class="brand_logo_container">
+          <img src="https://i.imgur.com/XR4uZXE.png" class="brand_logo" alt="Logo">
+        </div>
+        <h4 class="margin-top-title text-white text-center">Login to your account</h4>
+      </div>
+
+      <div class="d-flex justify-content-center form_container">
+        <form name="form"
+              novalidate class="login_form">
+          <div class=""><label class="labels" for="userName">Enter a username</label></div>
+          <div class="input-group">
+            <div class="input-group-append"><span class="input-group-text"><i class="fa fa-user"></i></span></div>
+            <!-- USER NAME INPUT-->
+            <input placeholder="Username"
+                   type="text"
+                   name="userName"
+                   id="userName"
+                   class="form-control"
+                   [(ngModel)]="username">
+          </div>
+          <div class=""><label for="password" class="labels">Enter a password</label></div>
+          <div class="input-group mb-3 text-center">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-lock"></i></span>
+            </div>
+            <!-- Password INPUT-->
+            <input type="password"
+                   name="password"
+                   id="password"
+                   class="form-control input_form"
+                   placeholder="Password"
+                   [(ngModel)]="password">
+          </div>
+          <!-- Login Button -->
+          <div class="d-flex justify-content-center mt-3 login_container">
+            <button type="submit"
+                    class="btn login_btn"
+                    (click)="checkLogin()">Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="">
+        <div class="d-flex justify-content-center links text-light">
+          Don't have an account? <a routerLink="/signUp"class="ml-2 text-warning">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

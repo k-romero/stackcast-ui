@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="user_card">
+      <div class="d-flex justify-content-center">
+        <div class="brand_logo_container">
+          <img src="https://i.imgur.com/Cwtw7Tw.png" class="brand_logo" alt="Logo">
+        </div>
+        <h4 class="margin-top-title text-white text-center">Let's upload a video!</h4>
+      </div>
+      <div class="d-flex justify-content-center form_container">
+        <form name="form"
+              #f="ngForm"
+              (ngSubmit)="f.form.valid && upload()"
+              novalidate class="login_form">
+          <div class=""><label class="labels" for="video-title">Enter a title for your video...</label></div>
+          <div class="input-group">
+            <div class="input-group-append"><span class="input-group-text"><i class="fa fa-edit"></i></span></div>
+            <!-- Title INPUT-->
+            <input placeholder="Video Title"
+                   type="text"
+                   name="videoTitle"
+                   id="video-title"
+                   class="form-control"
+                   [(ngModel)]="videoName"
+                   #videoTitle="ngModel"
+                   [ngClass]="{'is-invalid': f.submitted && videoTitle.invalid}"
+                   required>
+            <!-- input validation group -->
+            <div *ngIf = "f.submitted && videoTitle.invalid" class="invalid-tooltip invalid_message text-center w-100">
+              <!-- individual validation errors-->
+              <div *ngIf="videoTitle.errors?.required">Video title required</div>
+            </div>
+          </div>
+          <div class=""><label for="fileUpload" class="labels">Select an mp4 to upload</label></div>
+          <div class="input-group mb-3 text-center">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-file-video-o"></i></span>
+            </div>
+            <!-- File INPUT-->
+            <input type="file"
+                   name="videoFile"
+                   accept="video/mp4"
+                   id="fileUpload"
+                   class="form-control input_form"
+                   placeholder="fileUpload"
+                   (change)="onFileSelected($event)"
+                   required>
+            <!-- input validation group -->
+            <div class="invalid-tooltip text-center invalid_message w-100">
+              <!-- individual validation errors-->
+              <div>Password is not valid</div>
+            </div>
+
+          </div>
+          <!-- Login Button -->
+          <div class="d-flex justify-content-center mt-3 login_container">
+            <button
+              type="submit"
+              class="btn login_btn"
+              [disabled]="!selectedFiles">
+              <i class="fa fa-cloud-upload"></i>
+              Submit
+            </button>
+          </div>
+          <div class="d-flex justify-content-center progress-container">
+            <div *ngIf="currentFile" class="progress progress-bar-style">
+              <div
+                class="progress-bar progress-bar-info progress-bar-striped"
+                role="progressbar"
+                attr.aria-valuenow="{{ progress }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [ngStyle]="{ width: progress + '%' }">
+                {{ progress }}%
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-light alert-box-style" role="alert">{{ errorMessage }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

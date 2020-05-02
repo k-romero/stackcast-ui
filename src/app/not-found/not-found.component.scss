@@ -1,0 +1,93 @@
+.body{padding:0;margin:0}
+
+#notfound{
+  position:relative;
+  height:100vh;
+}
+
+#notfound .notfound {
+  position:absolute;
+  left:50%;
+  top:40%;
+  -webkit-transform:translate(-50%,-50%);
+  -ms-transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+}
+
+.notfound{
+  max-width:520px;
+  width:100%;
+  text-align:center;
+  line-height:1.4;
+}
+
+.notfound .notfound-404{
+  height:auto;
+}
+
+.notfound .notfound-404 h1{
+  font-family:montserrat,sans-serif;
+  font-size:146px;
+  font-weight:700;
+  color:#232323;
+}
+
+.notfound .notfound-404 span{
+  display:inline-block;
+  width:120px;
+  height:120px;
+  //background-image:url("https://cdn4.vectorstock.com/i/1000x1000/89/73/film-strip-round-circle-frame-template-design-vector-7598973.jpg");
+  background-image:url("https://i.imgur.com/zER3ahl.png");
+  background-size:cover;
+  -webkit-transform:scale(1.6);
+  -ms-transform:scale(1.6);
+  transform:scale(1.6) translateX(4px);
+}
+
+.notfound h2{
+  font-family:montserrat,sans-serif;
+  font-size:22px;
+  font-weight:700;
+  margin-top: -24px;
+  text-transform:uppercase;
+  color:#232323;
+}
+
+.notfound p{
+  font-family:montserrat,sans-serif;
+  color:#787878;
+  font-weight: normal;
+}
+
+.notfound a{
+  font-family:montserrat,sans-serif;
+  display:inline-block;
+  padding:12px 30px;
+  font-weight:700;
+  background-color:#c0392b;
+  color:#fff;
+  border-radius:40px;
+  text-decoration:none;
+  -webkit-transition:.2s all;
+  transition:.2s all;
+}
+
+.notfound a:hover{
+  opacity:.8;
+}
+
+@media only screen and (max-width:767px){
+
+  .notfound .notfound-404{
+    height:115px
+  }
+
+  .notfound .notfound-404 h1{
+    font-size:86px
+  }
+
+  .notfound .notfound-404 h1>span{
+    width:86px;height:86px
+  }
+
+}

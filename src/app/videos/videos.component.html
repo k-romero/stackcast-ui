@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <!-- Video content -->
+
+  <div class="row justify-content-center" style="margin-top: 28px;">
+    <!-- Videos Menu -->
+    <div *ngIf="!singleVideo" class="col-md-8">
+      <!-- Videos List -->
+      <div *ngFor="let video of allVideos.slice().reverse()" class="video-list-container">
+        <div class="video-details w-100">
+          <h5>{{video.videoName}}</h5>
+          <button (click)="onVideoSelect(video.videoId);populateSingleVideoAndShow(video.videoId)" class="">Video page & Comments</button>
+        </div>
+        <video class="video-fluid" controls="controls" poster="">
+          <source src="{{video.videoPath}}" type="{{video.videoType}}" />
+        </video>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="singleVideo" class="single-video">
+    <video (playing)="trackTime()" id="singleVideo" class="video-fluid" controls="controls" poster="">
+      <source src="{{singleVideoModel.videoPath}}" type="{{singleVideoModel.videoType}}" />
+    </video>
+    <div class="video-details video-details-single w-100">
+      <div class="video-details-title video-details-title-single">
+        <h5>{{singleVideoModel.videoName}}</h5>
+        <p class="video-details-view">{{singleVideoModel.videoViews}} views | {{time}} / {{totalTime}}
+          | <i (click)="addLikes(singleVideoModel.videoId)" class="fa fa-thumbs-o-up video-details-view-likes"></i> {{singleVideoModel.likes}} | <i (click)="addDisLikes(singleVideoModel.videoId)" class="fa fa-thumbs-o-down video-details-view-dislikes"></i>  {{singleVideoModel.dislikes}}</p>
+      </div>
+      <div class="video-buttons single-video-buttons">
+        <button (click)="onVideoSelect(singleVideoModel.videoId);toggleHiddenDiv();" class="single-video-button">Show/Hide Comments</button>
+        <button (click)="singleVideo=!singleVideo; isShow=false; resetVideoView()" class="single-video-button single-video-button-end">Back to videos</button>
+      </div>
+    </div>
+    <div *ngIf="isShow" class="comment-container">
+      <div class="form-group shadow-textarea">
+        <textarea placeholder="Leave a comment!"
+                  [(ngModel)]="commentModel.message"
+                  (keyup.enter)="addCommentToVideo(singleVideoModel.videoId); commentModel.message=''"></textarea>
+      </div>
+      <div *ngFor="let comment of singleVideoModel.comments.slice().reverse()" id="individual-comment" class="comment-individual">
+        <div>
+          <div class="comment-details comment-details-top">
+            <p>{{comment.username}}</p>
+            <p class="comment-details-top-date">{{comment.dateCreated | date:'M/d/yy-h:mm a'}}</p>
+          </div>
+          <div class="comment-details">
+            <p class="comment-message">{{comment.message}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

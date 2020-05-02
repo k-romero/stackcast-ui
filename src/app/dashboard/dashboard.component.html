@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class="dashboard-welcome">
+    <h3>Welcome to your dashboard {{userModel?.userName}}!</h3>
+  </div>
+  <div class="row video-container" style="margin-top: 28px;">
+    <div class="dashboard-header">
+      <h1 class="dashboard-header-title">{{userModel?.userName}}'s video upload history</h1>
+    </div>
+    <div *ngIf="isEmpty" class="empty-dashboard">
+      <img src="https://i.imgur.com/SdyhXX8.png" class="empty" alt="Empty image">
+      <p class="empty-copy">Wow such empty...<br>
+        Start uploading videos to fill your dashboard!</p>
+    </div>
+    <div class="video-wrapper">
+      <div *ngFor="let video of allVideos.slice().reverse()" class="video-list-container">
+        <div class="video-details">
+          <h5>{{video.videoName}}</h5>
+          <div class="video-button-group">
+            <button (click)="onVideoSelect(video.videoId);lgModal.show(); config.keyboard = !config.keyboard" class="comment-button">View Video</button>
+            <button (click)="smModal.show()" class="trash-button"><i class="fa fa-trash-o"></i></button>
+          </div>
+        </div>
+        <video class="video-fluid z-depth-1" poster="">
+          <source src="{{video.videoPath}}" type="{{video.videoType}}"/>
+        </video>
+        <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-delete">
+              <div class="modal-header modal-delete-header">
+                <h4 id="dialog-sizes-name2" class="modal-title"><i class="fa fa-warning"></i> Hold Up! <i class="fa fa-warning"></i></h4>
+              </div>
+              <div class="modal-body">
+                <div class="modal-delete-contents">
+                  <h4>Are you sure you want to delete<br><em>{{video.videoName}}</em>?</h4>
+                  <div  class="modal-delete-contents-button-group">
+                    <button (click)="deleteVideo(video.videoId); smModal.hide(); smModalDel.show()">Yes!</button>
+                    <button (click)="smModal.hide()">No!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div bsModal #smModalDel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name2">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content modal-delete">
+              <div class="modal-header modal-delete-header modal-delete-header-success">
+                <h4 id="dialog-sizes-name3" class="modal-title pull-left">Video Deleted!</h4>
+              </div>
+              <div class="modal-body">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                  <circle class="path circle" fill="none" stroke="#4CB317" stroke-width="7" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                  <polyline class="path check" fill="none" stroke="#4CB317" stroke-width="7" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div bsModal #lgModal="bs-modal" class="modal fade video-modal" tabindex="-1"
+             role="dialog" aria-labelledby="dialog-sizes-name1">
+          <div class="video-modal-contents">
+            <video class="video-fluid z-depth-1" controls="controls" poster="">
+              <source src="{{video.videoPath}}" type="{{video.videoType}}"/>
+            </video>
+            <div class="video-comment-button" (click)="toggleHiddenDiv();">
+              -Click to view comments-
+            </div>
+
+            <div *ngIf="isShow" class="comment-container">
+              <div class="form-group shadow-textarea">
+            <textarea class="form-control z-depth-1"
+                      id="exampleFormControlTextarea6"
+                      [(ngModel)]="commentModel.message"
+                      rows="3" (keyup.enter)="addCommentToVideo(video.videoId); commentModel.message=''"
+                      placeholder="Enter your comment here...">
+            </textarea>
+              </div>
+              <div *ngFor="let comment of video.comments.slice().reverse()" id="individual-comment" class="comment-individual">
+                <div>
+                  <div class="comment-details comment-details-top">
+                    <p>{{comment.username}}</p>
+                    <p class="comment-details-top-date">{{comment.dateCreated | date:'M/d/yy - h:mm a'}}</p>
+                  </div>
+                  <div class="comment-details">
+                    <p class="comment-message">{{comment.message}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
